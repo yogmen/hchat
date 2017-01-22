@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.szala.hchat.R;
+import com.szala.hchat.model.Crop;
 
 /**
  * Created by robert on 22/01/2017.
