@@ -12,7 +12,7 @@ import retrofit2.http.Path;
  * Created by robert on 22/01/2017.
  */
 
-public interface ForumEndpoint {
+public interface ForumService {
 
     @GET("forum/{slugOrUUID}")
     Call<CoreObject> getForum(@Path("slugOrUUID") String slugOrUUID);
