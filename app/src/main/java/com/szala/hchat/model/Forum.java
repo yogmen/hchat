@@ -54,4 +54,15 @@ public class Forum {
     public void setLogo(Image logo) {
         this.logo = logo;
     }
+
+    @Override
+    public String toString() {
+        return "Forum{" +
+                "uuid='" + uuid + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", headerImage=" + headerImage +
+                ", logo=" + logo +
+                '}';
+    }
 }

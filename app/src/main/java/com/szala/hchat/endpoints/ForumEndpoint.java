@@ -1,7 +1,6 @@
 package com.szala.hchat.endpoints;
 
-import com.szala.hchat.model.Forum;
-import com.szala.hchat.model.Post;
+import com.szala.hchat.model.CoreObject;
 
 import java.util.List;
 
@@ -16,8 +15,8 @@ import retrofit2.http.Path;
 public interface ForumEndpoint {
 
     @GET("forum/{slugOrUUID}")
-    Call<Forum> getForum(@Path("slugOrUUID") String slugOrUUID);
+    Call<CoreObject> getForum(@Path("slugOrUUID") String slugOrUUID);
 
     @GET("forum/{slugOrUUID}/post")
-    Call<List<Post>> getForumPosts(@Path("slugOrUUID") String slugOrUUID);
+    Call<List<CoreObject>> getForumPosts(@Path("slugOrUUID") String slugOrUUID);
 }
