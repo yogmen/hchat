@@ -2,9 +2,7 @@ package com.szala.hchat.endpoints;
 
 import com.szala.hchat.model.CoreObject;
 
-import java.util.List;
-
-import retrofit2.Call;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -15,8 +13,8 @@ import retrofit2.http.Path;
 public interface ForumService {
 
     @GET("forum/{slugOrUUID}")
-    Call<CoreObject> getForum(@Path("slugOrUUID") String slugOrUUID);
+    Observable<CoreObject> getForum(@Path("slugOrUUID") String slugOrUUID);
 
     @GET("forum/{slugOrUUID}/post")
-    Call<List<CoreObject>> getForumPosts(@Path("slugOrUUID") String slugOrUUID);
+    Observable<CoreObject> getForumPosts(@Path("slugOrUUID") String slugOrUUID);
 }

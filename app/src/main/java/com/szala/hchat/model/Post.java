@@ -1,14 +1,23 @@
 package com.szala.hchat.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by robert on 22/01/2017.
  */
 
 public class Post {
 
+    @SerializedName("rawContent")
     private String text;
+
+    @SerializedName("createdBy")
     private User createdBy;
+
+    @SerializedName("entities")
     private Entities entities;
+
+    @SerializedName("stats")
     private Stats stats;
 
     public Post() {

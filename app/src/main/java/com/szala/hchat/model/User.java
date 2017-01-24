@@ -7,6 +7,7 @@ package com.szala.hchat.model;
 public class User {
     private Image avatar;
     private String username;
+    private String displayName;
 
     public User(){}
 
@@ -24,5 +25,13 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

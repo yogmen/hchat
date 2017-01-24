@@ -1,26 +1,25 @@
 package com.szala.hchat.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.szala.hchat.HChatApplication;
 import com.szala.hchat.R;
 import com.szala.hchat.endpoints.ForumService;
-import com.szala.hchat.model.CoreObject;
 
 import javax.inject.Inject;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import butterknife.OnClick;
 import retrofit2.Retrofit;
 
 /**
  * Created by robert on 22/01/2017.
  */
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     private final String TAG = MainActivity.class.getSimpleName();
 
     @Inject
@@ -31,20 +30,20 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_acitivity_layout);
 
-
         ((HChatApplication) getApplication()).getNetComponent().inject(this);
 
-        Call<CoreObject> photography = retrofit.create(ForumService.class).getForum("photography");
-        photography.enqueue(new Callback<CoreObject>() {
-            @Override
-            public void onResponse(Call<CoreObject> call, Response<CoreObject> response) {
-                Log.i(TAG, "onResponse: " + response.body().getForum().getDescription());
-            }
+        ForumService forumService = retrofit.create(ForumService.class);
+    }
 
-            @Override
-            public void onFailure(Call<CoreObject> call, Throwable t) {
-                Log.e(TAG, "onFailure: " + t.getMessage(), t);
-            }
-        });
+    @OnClick(R.id.menu_reload)
+    void reloadView() {
+        Log.i(TAG, "reloadView: that will call manual action");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }
