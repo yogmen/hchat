@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">HChat</string>
     <string name="reload">Reload</string>
+    <string name="forum_info">Forum info</string>
 </resources>

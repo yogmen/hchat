@@ -35,4 +35,8 @@ public class Stats {
     public void setUpVotes(int upVotes) {
         this.upVotes = upVotes;
     }
+
+    public String getUpVotesAsString() {
+        return String.valueOf(upVotes);
+    }
 }

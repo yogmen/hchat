@@ -2,17 +2,17 @@ package com.szala.hchat.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 
 import com.szala.hchat.HChatApplication;
 import com.szala.hchat.R;
 import com.szala.hchat.endpoints.ForumService;
+import com.szala.hchat.fragment.MainFragment;
+import com.szala.hchat.presenter.MainPresenter;
 
 import javax.inject.Inject;
 
-import butterknife.OnClick;
 import retrofit2.Retrofit;
 
 /**
@@ -20,10 +20,10 @@ import retrofit2.Retrofit;
  */
 
 public class MainActivity extends AppCompatActivity {
-    private final String TAG = MainActivity.class.getSimpleName();
 
     @Inject
     Retrofit retrofit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +32,14 @@ public class MainActivity extends AppCompatActivity {
 
         ((HChatApplication) getApplication()).getNetComponent().inject(this);
 
-        ForumService forumService = retrofit.create(ForumService.class);
-    }
+        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.container);
+        if(null == mainFragment) mainFragment = new MainFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, mainFragment, MainFragment.class.getSimpleName())
+                .commit();
 
-    @OnClick(R.id.menu_reload)
-    void reloadView() {
-        Log.i(TAG, "reloadView: that will call manual action");
+        new MainPresenter(mainFragment, retrofit.create(ForumService.class));
     }
 
     @Override
