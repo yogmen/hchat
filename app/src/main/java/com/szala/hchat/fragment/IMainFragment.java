@@ -13,4 +13,10 @@ public interface IMainFragment<T> {
     void setPresenter(T presenter);
 
     void addPosts(List<Post> posts);
+
+    void showErrorMessage();
+
+    void showProgressBar();
+
+    void dismissProgressBar();
 }

@@ -27,6 +27,7 @@ public class MainPresenter implements IMainPresenter{
     public MainPresenter(IMainFragment mainFragment, ForumService forumService) {
         this.mainFragment = mainFragment;
         this.forumService = forumService;
+        this.mainFragment.setPresenter(this);
 
         loadPosts(forumService.getForumPosts("photography"));
     }
@@ -34,7 +35,6 @@ public class MainPresenter implements IMainPresenter{
 
     @Override
     public void subscribe() {
-        //TODO implement
     }
 
     @Override
@@ -42,19 +42,26 @@ public class MainPresenter implements IMainPresenter{
         disposable.clear();
     }
 
-    public void loadPosts(Observable<CoreObject> observable){
+    public void loadPosts(){
+        mainFragment.showProgressBar();
+        loadPosts(forumService.getForumPosts("photography"));
+    }
+
+    private void loadPosts(Observable<CoreObject> observable){
         disposable.add(observable
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Consumer<CoreObject>() {
             @Override
             public void accept(CoreObject coreObject) throws Exception {
+                mainFragment.dismissProgressBar();
                 mainFragment.addPosts(coreObject.getPosts());
             }
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
-                Log.e(TAG, "accept: " + throwable.getMessage(), throwable);
+                mainFragment.dismissProgressBar();
+                mainFragment.showErrorMessage();
             }
         }));
     }

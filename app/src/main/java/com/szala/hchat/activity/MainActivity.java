@@ -41,11 +41,4 @@ public class MainActivity extends AppCompatActivity {
 
         new MainPresenter(mainFragment, retrofit.create(ForumService.class));
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 }

@@ -2,4 +2,5 @@
     <string name="app_name">HChat</string>
     <string name="reload">Reload</string>
     <string name="forum_info">Forum info</string>
+    <string name="something_went_wrong">Something went wrong - try again</string>
 </resources>
