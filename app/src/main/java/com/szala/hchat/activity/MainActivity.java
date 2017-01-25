@@ -2,8 +2,6 @@ package com.szala.hchat.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
 
 import com.szala.hchat.HChatApplication;
 import com.szala.hchat.R;
@@ -23,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Inject
     Retrofit retrofit;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

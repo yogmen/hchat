@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.szala.hchat.R;
 import com.szala.hchat.model.Post;
 
@@ -36,6 +37,7 @@ public class ForumPostAdapter extends RecyclerView.Adapter<ForumPostAdapter.View
         Post post = posts.get(position);
         holder.text.setText(post.getText());
         holder.upVotes.setText(post.getStats().getUpVotesAsString());
+        holder.userAvatar.setImageURI(post.getCreatedBy().getAvatar().getUrl());
     }
 
     @Override
@@ -52,11 +54,13 @@ public class ForumPostAdapter extends RecyclerView.Adapter<ForumPostAdapter.View
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView text;
         TextView upVotes;
+        SimpleDraweeView userAvatar;
 
         public ViewHolder(View itemView) {
             super(itemView);
             text = (TextView) itemView.findViewById(R.id.post_text);
             upVotes = (TextView) itemView.findViewById(R.id.post_upvotes);
+            userAvatar = (SimpleDraweeView) itemView.findViewById(R.id.post_author_avatar);
         }
     }
 

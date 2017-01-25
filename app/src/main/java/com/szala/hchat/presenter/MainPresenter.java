@@ -1,7 +1,5 @@
 package com.szala.hchat.presenter;
 
-import android.util.Log;
-
 import com.szala.hchat.endpoints.ForumService;
 import com.szala.hchat.fragment.IMainFragment;
 import com.szala.hchat.model.CoreObject;
