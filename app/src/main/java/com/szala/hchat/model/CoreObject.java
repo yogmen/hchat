@@ -1,11 +1,14 @@
 package com.szala.hchat.model;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
 /**
  * Created by robert on 22/01/2017.
  */
 
+@Parcel
 public class CoreObject {
     private String status;
     private Forum forum;

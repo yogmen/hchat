@@ -38,6 +38,7 @@ public class ForumPostAdapter extends RecyclerView.Adapter<ForumPostAdapter.View
         holder.text.setText(post.getText());
         holder.upVotes.setText(post.getStats().getUpVotesAsString());
         holder.userAvatar.setImageURI(post.getCreatedBy().getAvatar().getUrl());
+        holder.userDisplayName.setText(post.getCreatedBy().getDisplayName());
     }
 
     @Override
@@ -54,13 +55,15 @@ public class ForumPostAdapter extends RecyclerView.Adapter<ForumPostAdapter.View
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView text;
         TextView upVotes;
+        TextView userDisplayName;
         SimpleDraweeView userAvatar;
 
         public ViewHolder(View itemView) {
             super(itemView);
             text = (TextView) itemView.findViewById(R.id.post_text);
-            upVotes = (TextView) itemView.findViewById(R.id.post_upvotes);
-            userAvatar = (SimpleDraweeView) itemView.findViewById(R.id.post_author_avatar);
+            upVotes = (TextView) itemView.findViewById(R.id.post_upvotes_value);
+            userDisplayName = (TextView) itemView.findViewById(R.id.post_user_displayname);
+            userAvatar = (SimpleDraweeView) itemView.findViewById(R.id.post_user_avatar);
         }
     }
 

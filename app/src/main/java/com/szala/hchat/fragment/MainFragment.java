@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +20,7 @@ import com.szala.hchat.R;
 import com.szala.hchat.adapter.ForumPostAdapter;
 import com.szala.hchat.model.Post;
 import com.szala.hchat.presenter.IMainPresenter;
+import com.szala.hchat.ui.ForumPostDivider;
 
 import java.util.List;
 
@@ -54,6 +54,7 @@ public class MainFragment extends Fragment implements IMainFragment<IMainPresent
         postsView = (RecyclerView) view.findViewById(R.id.post_list);
         postsView.setLayoutManager(layoutManager);
         postsView.setItemAnimator(new DefaultItemAnimator());
+        postsView.addItemDecoration(new ForumPostDivider(getActivity(), LinearLayoutManager.VERTICAL));
         postsView.setAdapter(forumPostAdapter);
         return view;
     }

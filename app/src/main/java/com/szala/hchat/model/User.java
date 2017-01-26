@@ -1,9 +1,12 @@
 package com.szala.hchat.model;
 
+import org.parceler.Parcel;
+
 /**
  * Created by robert on 22/01/2017.
  */
 
+@Parcel
 public class User {
     private Image avatar;
     private String username;

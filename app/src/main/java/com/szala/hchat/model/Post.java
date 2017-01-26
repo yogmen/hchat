@@ -2,10 +2,13 @@ package com.szala.hchat.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 /**
  * Created by robert on 22/01/2017.
  */
 
+@Parcel
 public class Post {
 
     @SerializedName("rawContent")

@@ -1,47 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="88dp">
 
     <LinearLayout
+        android:id="@+id/post_user_container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/post_author_avatar"
-            android:layout_width="130dp"
-            android:layout_height="130dp" />
+            android:id="@+id/post_user_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            fresco:roundAsCircle="true"/>
 
         <TextView
-            android:id="@+id/post_author_name"
+            android:id="@+id/post_user_displayname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sample Name" />
+            android:paddingTop="8dp"
+            android:gravity="center"
+            android:text="Sample text" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/post_upvotes_container"
+        android:layout_width="56dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/post_upvotes_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="16dp"
+            fresco:srcCompat="@drawable/ic_mood_black_24dp" />
+
+        <TextView
+            android:id="@+id/post_upvotes_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:layout_gravity="center_horizontal"
+            android:text="99"/>
     </LinearLayout>
 
     <TextView
         android:id="@+id/post_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is really sample long test text" />
+        android:padding="8dp"
+        android:text="This is a very long sample text more moreover with really multiple text lines and so on"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:maxLines="3"
+        android:minLines="1"
+        android:autoLink="web"
+        android:layout_toEndOf="@+id/post_user_container"
+        android:layout_toRightOf="@id/post_upvotes_container"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/post_upvotes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="20" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>
