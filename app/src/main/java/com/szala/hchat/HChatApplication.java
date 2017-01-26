@@ -1,6 +1,9 @@
 package com.szala.hchat;
 
 import android.app.Application;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.szala.hchat.component.DaggerNetComponent;
@@ -20,6 +23,8 @@ public class HChatApplication extends Application {
 
     private NetComponent netComponent;
 
+    private static HChatApplication instance;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -30,9 +35,21 @@ public class HChatApplication extends Application {
                 .appModule(new AppModule(this))
                 .netModule(new NetModule(BASE_URL, LOGGING_LEVEL))
                 .build();
+
+        instance = this;
     }
 
     public NetComponent getNetComponent() {
         return netComponent;
+    }
+
+    public static boolean hasNetwork() {
+        return instance.checkIfHasNetwork();
+    }
+
+    public boolean checkIfHasNetwork() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
     }
 }

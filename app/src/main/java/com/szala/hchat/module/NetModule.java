@@ -5,13 +5,21 @@ import android.app.Application;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.szala.hchat.HChatApplication;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
+import okhttp3.CacheControl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -23,8 +31,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetModule {
 
-    final private String BASE_URL;
-    final private HttpLoggingInterceptor.Level LOGGING_LEVEL;
+    private final String BASE_URL;
+    private final HttpLoggingInterceptor.Level LOGGING_LEVEL;
+    private final String CACHE_CONTROL = "Cache-Control";
 
     public NetModule(String BASE_URL, HttpLoggingInterceptor.Level LOGGING_LEVEL) {
         this.BASE_URL = BASE_URL;
@@ -52,6 +61,8 @@ public class NetModule {
         return new OkHttpClient.Builder()
                 .cache(cache)
                 .addInterceptor(httpLoggingInterceptor)
+                .addInterceptor(provideOfflineCacheInterceptor())
+                .addNetworkInterceptor(provideCacheInterceptor())
                 .build();
 
     }
@@ -62,6 +73,46 @@ public class NetModule {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(LOGGING_LEVEL);
         return httpLoggingInterceptor;
+    }
+
+    @Provides
+    @Singleton
+    Interceptor provideCacheInterceptor(){
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Response response = chain.proceed(chain.request());
+
+                CacheControl cacheControl = new CacheControl.Builder()
+                        .maxAge(2, TimeUnit.MINUTES)
+                        .build();
+
+                return response.newBuilder()
+                        .header(CACHE_CONTROL, CACHE_CONTROL.toString())
+                        .build();
+            }
+        };
+    }
+
+    public static Interceptor provideOfflineCacheInterceptor() {
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+
+                if (!HChatApplication.hasNetwork()) {
+                    CacheControl cacheControl = new CacheControl.Builder()
+                            .maxStale(7, TimeUnit.DAYS)
+                            .build();
+
+                    request = request.newBuilder()
+                            .cacheControl(cacheControl)
+                            .build();
+                }
+
+                return chain.proceed(request);
+            }
+        };
     }
 
     @Provides
